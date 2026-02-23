@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChemHelper - Chemistry Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body { background: #1a1a2e; color: white; }
+        #app { width: 100%; min-height: 100vh; }
+        .screen { display: none; }
+        .screen.active { display: block; }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- Menu Screen -->
+        <div id="menu-screen" class="screen active">
+            <div class="menu-container" style="background: linear-gradient(135deg, #6a0572 0%, #1a237e 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center;">
+                <h1 class="title" style="color: white; font-size: 3rem; margin-bottom: 20px;">ChemHelper</h1>
+                <p class="subtitle" style="color: #e0e0e0; font-size: 1.5rem; margin-bottom: 60px;">Chemistry Assistant</p>
+                <div class="button-container" style="display: flex; flex-direction: column; gap: 15px;">
+                    <button style="padding: 15px 40px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; background: #00C8FF; color: black; min-width: 220px; font-weight: bold;" onclick="showScreen('chemhelper')">ChemHelper</button>
+                    <button style="padding: 15px 40px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; background: #FF8C00; color: white; min-width: 220px; font-weight: bold;" onclick="showScreen('calculator')">Calculator</button>
+                    <button style="padding: 15px 40px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; background: #32CD32; color: black; min-width: 220px; font-weight: bold;" onclick="showScreen('quiz')">Quiz</button>
+                    <button style="padding: 15px 40px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; background: #FF69B4; color: white; min-width: 220px; font-weight: bold;" onclick="showScreen('settings')">Settings</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ChemHelper Screen -->
+        <div id="chemhelper-screen" class="screen">
+            <div style="background: linear-gradient(135deg, #193782 0%, #2c5aa0 100%); color: white; padding: 30px; text-align: center;">
+                <h1>ChemHelper - Element Lookup</h1>
+            </div>
+            <div style="background: linear-gradient(135deg, #FF8C00 0%, #FFB84D 100%); min-height: calc(100vh - 80px); padding: 40px;">
+                <div style="background: rgba(255, 255, 255, 0.9); padding: 25px; border-radius: 10px; margin-bottom: 30px; max-width: 900px; margin-left: auto; margin-right: auto;">
+                    <label style="display: block; font-size: 1.1rem; margin-bottom: 15px; color: #333; font-weight: bold;">Search by name, symbol, or atomic number:</label>
+                    <input type="text" id="element-search" placeholder="Type here..." onkeyup="searchElement()" style="width: 100%; padding: 12px; font-size: 1rem; border: 3px solid #193782; border-radius: 6px; background: #f9f9f9;">
+                </div>
+                <div id="element-info" style="display:none; background: rgba(255, 255, 255, 0.95); padding: 25px; border-radius: 10px; margin-bottom: 30px; max-width: 900px; margin-left: auto; margin-right: auto;">
+                    <div style="background: linear-gradient(135deg, #E8F4F8 0%, #FFF8DC 100%); padding: 20px; border-radius: 8px; border-left: 5px solid #193782;">
+                        <h2 id="element-name" style="color: #193782; font-size: 2rem; margin-bottom: 15px;"></h2>
+                        <p id="element-atomic" style="color: #333; font-size: 1rem; margin-bottom: 10px;"></p>
+                        <p id="element-protons" style="color: #333; font-size: 1rem; margin-bottom: 10px;"></p>
+                        <p id="element-neutrons" style="color: #333; font-size: 1rem; margin-bottom: 10px;"></p>
+                        <button style="padding: 10px 20px; font-size: 1rem; border: none; border-radius: 6px; cursor: pointer; background: #DC143C; color: white; font-weight: bold; margin-top: 15px;" onclick="clearSearch()">Clear</button>
+                    </div>
+                </div>
+                <p id="enter-element" style="text-align: center; font-size: 1.1rem; color: white; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">Enter an element to search!</p>
+            </div>
+            <button style="position: fixed; bottom: 30px; left: 30px; padding: 10px 20px; font-size: 1rem; border: none; border-radius: 8px; cursor: pointer; background: #FF69B4; color: white; font-weight: bold;" onclick="showScreen('menu')">Back</button>
+        </div>
+
+        <!-- Calculator Screen -->
+        <div id="calculator-screen" class="screen">
+            <div style="background: linear-gradient(135deg, #193782 0%, #2c5aa0 100%); color: white; padding: 30px; text-align: center;">
+                <h1>Calculator</h1>
+            </div>
+            <div style="background: linear-gradient(135deg, #32CD32 0%, #7FFF00 100%); min-height: calc(100vh - 80px); display: flex; align-items: center; justify-content: center; padding: 40px;">
+                <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); width: 100%; max-width: 350px;">
+                    <div id="calc-display" style="background: #193782; color: #00C8FF; font-size: 2.5rem; padding: 20px; border-radius: 8px; text-align: right; margin-bottom: 20px; font-weight: bold; font-family: 'Courier New', monospace;">0</div>
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+                        <button onclick="calcInput('7')" style="padding: 15px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; background: #e0e0e0; font-weight: bold;">7</button>
+                        <button onclick="calcInput('8')" style="padding: 15px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; background: #e0e0e0; font-weight: bold;">8</button>
+                        <button onclick="calcInput('9')" style="padding: 15px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; background: #e0e0e0; font-weight: bold;">9</button>
+                        <button onclick="calcInput('/')" style="padding: 15px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; background: #FF8C00; color: white; font-weight: bold;">/</button>
+                        
+                        <button onclick="calcInput('4')" style="padding: 15px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; background: #e0e0e0; font-weight: bold;">4</button>
+                        <button onclick="calcInput('5')" style="padding: 15px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; background: #e0e0e0; font-weight: bold;">5</button>
+                        <button onclick="calcInput('6')" style="padding: 15px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; background: #e0e0e0; font-weight: bold;">6</button>
+                        <button onclick="calcInput('*')" style="padding: 15px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; background: #FF8C00; color: white; font-weight: bold;">*</button>
+                        
+                        <button onclick="calcInput('1')" style="padding: 15px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; background: #e0e0e0; font-weight: bold;">1</button>
+                        <button onclick="calcInput('2')" style="padding: 15px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; background: #e0e0e0; font-weight: bold;">2</button>
+                        <button onclick="calcInput('3')" style="padding: 15px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; background: #e0e0e0; font-weight: bold;">3</button>
+                        <button onclick="calcInput('-')" style="padding: 15px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; background: #FF8C00; color: white; font-weight: bold;">-</button>
+                        
+                        <button onclick="calcInput('0')" style="padding: 15px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; background: #e0e0e0; font-weight: bold;">0</button>
+                        <button onclick="calcInput('.')" style="padding: 15px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; background: #e0e0e0; font-weight: bold;">.</button>
+                        <button onclick="calcInput('=')" style="padding: 15px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; background: #32CD32; color: white; font-weight: bold; grid-column: span 2;">=</button>
+                        
+                        <button onclick="calcClear()" style="padding: 15px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; background: #DC143C; color: white; font-weight: bold; grid-column: span 4;">C</button>
+                    </div>
+                </div>
+            </div>
+            <button style="position: fixed; bottom: 30px; left: 30px; padding: 10px 20px; font-size: 1rem; border: none; border-radius: 8px; cursor: pointer; background: #FF69B4; color: white; font-weight: bold;" onclick="showScreen('menu')">Back</button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="screen">
+            <div style="background: linear-gradient(135deg, #193782 0%, #2c5aa0 100%); color: white; padding: 30px; text-align: center;">
+                <h1>Chemistry Quiz</h1>
+            </div>
+            <div style="background: linear-gradient(135deg, #9C27B0 0%, #673AB7 100%); min-height: calc(100vh - 80px); display: flex; align-items: center; justify-content: center; padding: 40px;">
+                <div style="background: white; padding: 40px; border-radius: 15px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); width: 100%; max-width: 600px; text-align: center;">
+                    <div id="quiz-question" style="background: linear-gradient(135deg, #FFE082 0%, #FFF9C4 100%); padding: 30px; border-radius: 8px; font-size: 1.5rem; color: #333; margin-bottom: 30px; font-weight: bold; min-height: 80px; display: flex; align-items: center; justify-content: center;"></div>
+                    <div style="margin-bottom: 30px;">
+                        <input type="number" id="quiz-answer" placeholder="Enter your answer" onkeyup="if(event.key==='Enter') submitQuizAnswer()" style="width: 100%; padding: 15px; font-size: 1.2rem; border: 3px solid #9C27B0; border-radius: 8px; text-align: center;">
+                    </div>
+                    <div id="quiz-feedback" style="display:none; background: #f0f0f0; padding: 20px; border-radius: 8px; margin-bottom: 20px; font-size: 1.1rem; font-weight: bold;"></div>
+                    <button id="quiz-submit" style="width: 100%; padding: 15px; font-size: 1.1rem; border: none; border-radius: 8px; cursor: pointer; background: #00C8FF; color: black; font-weight: bold; margin-bottom: 10px;" onclick="submitQuizAnswer()">Submit</button>
+                    <button id="quiz-next" style="display:none; width: 100%; padding: 15px; font-size: 1.1rem; border: none; border-radius: 8px; cursor: pointer; background: #32CD32; color: black; font-weight: bold;" onclick="nextQuizQuestion()">Next Question</button>
+                </div>
+            </div>
+            <button style="position: fixed; bottom: 30px; left: 30px; padding: 10px 20px; font-size: 1rem; border: none; border-radius: 8px; cursor: pointer; background: #FF69B4; color: white; font-weight: bold;" onclick="showScreen('menu')">Back</button>
+        </div>
+
+        <!-- Settings Screen -->
+        <div id="settings-screen" class="screen">
+            <div style="background: linear-gradient(135deg, #193782 0%, #2c5aa0 100%); color: white; padding: 30px; text-align: center;">
+                <h1>Settings</h1>
+            </div>
+            <div style="background: linear-gradient(135deg, #40E0D0 0%, #00BCD4 100%); min-height: calc(100vh - 80px); display: flex; align-items: center; justify-content: center; padding: 40px;">
+                <div style="background: white; padding: 40px; border-radius: 15px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); width: 100%; max-width: 500px; text-align: center;">
+                    <h2 style="font-size: 1.8rem; color: #193782; margin-bottom: 30px;">Language:</h2>
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <button style="padding: 15px 40px; font-size: 1.1rem; border: none; border-radius: 8px; cursor: pointer; background: #40E0D0; color: black; font-weight: bold; width: 100%;" onclick="setLanguage('English')">English</button>
+                        <button style="padding: 15px 40px; font-size: 1.1rem; border: none; border-radius: 8px; cursor: pointer; background: #40E0D0; color: black; font-weight: bold; width: 100%;" onclick="setLanguage('Spanish')">Spanish</button>
+                        <button style="padding: 15px 40px; font-size: 1.1rem; border: none; border-radius: 8px; cursor: pointer; background: #40E0D0; color: black; font-weight: bold; width: 100%;" onclick="setLanguage('French')">French</button>
+                    </div>
+                </div>
+            </div>
+            <button style="position: fixed; bottom: 30px; left: 30px; padding: 10px 20px; font-size: 1rem; border: none; border-radius: 8px; cursor: pointer; background: #FF69B4; color: white; font-weight: bold;" onclick="showScreen('menu')">Back</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

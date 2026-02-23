@@ -1,0 +1,474 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #1a1a2e;
+    overflow: hidden;
+}
+
+#app {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #1a1a2e;
+}
+
+.screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    overflow: auto;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* Menu Screen */
+#menu-screen {
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #6a0572 0%, #1a237e 100%);
+}
+
+.menu-container {
+    position: relative;
+    text-align: center;
+    z-index: 2;
+}
+
+.title {
+    font-size: 4rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: #e0e0e0;
+    margin-bottom: 60px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Buttons */
+.btn {
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 220px;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+    transform: translateY(-1px);
+}
+
+.btn-cyan {
+    background: #00C8FF;
+    color: #000;
+}
+
+.btn-orange {
+    background: #FF8C00;
+    color: #fff;
+}
+
+.btn-lime {
+    background: #32CD32;
+    color: #000;
+}
+
+.btn-pink {
+    background: #FF69B4;
+    color: #fff;
+}
+
+.btn-red {
+    background: #DC143C;
+    color: #fff;
+}
+
+.btn-turquoise {
+    background: #40E0D0;
+    color: #000;
+}
+
+.btn-gold {
+    background: #FFD700;
+    color: #000;
+}
+
+/* Headers */
+.header {
+    background: linear-gradient(135deg, #193782 0%, #2c5aa0 100%);
+    color: #ffffff;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Back Button */
+.back-btn {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    min-width: auto;
+}
+
+/* ChemHelper Screen */
+#chemhelper-screen {
+    flex-direction: column;
+    background: linear-gradient(135deg, #FF8C00 0%, #FFB84D 100%);
+    padding: 100px 40px;
+}
+
+.chemhelper-container {
+    flex: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+}
+
+.search-section {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.search-section label {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: bold;
+}
+
+#element-search {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 3px solid #193782;
+    border-radius: 6px;
+    background: #f9f9f9;
+}
+
+#element-search:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(25, 55, 130, 0.5);
+}
+
+.element-info {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    margin-bottom: 30px;
+}
+
+.element-box {
+    background: linear-gradient(135deg, #E8F4F8 0%, #FFF8DC 100%);
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 5px solid #193782;
+}
+
+.element-box h2 {
+    color: #193782;
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.element-box p {
+    color: #333;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.charge-section {
+    background: white;
+    padding: 15px;
+    border-radius: 6px;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.charge-section label {
+    color: #333;
+    font-weight: bold;
+}
+
+#charge-input {
+    padding: 8px;
+    border: 2px solid #FF8C00;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100px;
+}
+
+.hint {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Calculator Screen */
+#calculator-screen {
+    flex-direction: column;
+    background: linear-gradient(135deg, #32CD32 0%, #7FFF00 100%);
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.calculator-container {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 350px;
+}
+
+.calc-display {
+    background: #193782;
+    color: #00C8FF;
+    font-size: 2.5rem;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: right;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    word-wrap: break-word;
+    word-break: break-all;
+    min-height: 60px;
+}
+
+.calc-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.calc-buttons button {
+    padding: 15px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #e0e0e0;
+    color: #333;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.calc-buttons button:hover {
+    background: #d0d0d0;
+    transform: scale(1.05);
+}
+
+.calc-buttons button.op {
+    background: #FF8C00;
+    color: white;
+}
+
+.calc-buttons button.equals {
+    background: #32CD32;
+    color: white;
+    grid-column: span 2;
+}
+
+.calc-buttons button.clear {
+    background: #DC143C;
+    color: white;
+    grid-column: span 2;
+}
+
+/* Quiz Screen */
+#quiz-screen {
+    flex-direction: column;
+    background: linear-gradient(135deg, #9C27B0 0%, #673AB7 100%);
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.quiz-container {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.quiz-question {
+    background: linear-gradient(135deg, #FFE082 0%, #FFF9C4 100%);
+    padding: 30px;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 30px;
+    font-weight: bold;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quiz-input {
+    margin-bottom: 30px;
+}
+
+#quiz-answer {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2rem;
+    border: 3px solid #9C27B0;
+    border-radius: 8px;
+    text-align: center;
+}
+
+#quiz-answer:focus {
+    outline: none;
+    box-shadow: 0 0 12px rgba(156, 39, 176, 0.5);
+}
+
+.quiz-feedback {
+    background: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.quiz-feedback.correct {
+    background: #C8E6C9;
+    color: #2E7D32;
+}
+
+.quiz-feedback.incorrect {
+    background: #FFCDD2;
+    color: #C62828;
+}
+
+#quiz-submit, #quiz-next {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+}
+
+/* Settings Screen */
+#settings-screen {
+    flex-direction: column;
+    background: linear-gradient(135deg, #40E0D0 0%, #00BCD4 100%);
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.settings-container {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 500px;
+}
+
+.language-section {
+    text-align: center;
+}
+
+.language-section h2 {
+    font-size: 1.8rem;
+    color: #193782;
+    margin-bottom: 30px;
+}
+
+.language-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.language-buttons .btn {
+    width: 100%;
+}
+
+.language-buttons .btn.active-lang {
+    background: #FFD700;
+    color: #000;
+    border: 3px solid #FF8C00;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2.5rem;
+    }
+    
+    .header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .flask-image {
+        width: 200px;
+        height: 200px;
+        right: 20px;
+        top: 110px;
+    }
+    
+    .btn {
+        padding: 12px 30px;
+        font-size: 1rem;
+        min-width: 180px;
+    }
+    
+    #chemhelper-screen {
+        padding: 100px 20px;
+    }
+    
+    .search-section {
+        padding: 15px;
+    }
+}

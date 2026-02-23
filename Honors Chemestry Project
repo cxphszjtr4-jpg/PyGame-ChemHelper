@@ -1,0 +1,279 @@
+#Honors Chemistry Project meant to help with finding various elements on the periodic table.
+
+import random
+import json
+import sys
+from pathlib import Path
+
+import app
+
+print("Welcome to ChemHelper! This program is designed to help you find various elements on the periodic table.")
+print("You can search for elements by their name, symbol, or atomic number.")
+print("Let's get started!")
+
+elementInput = input("Please enter the name, symbol, or atomic number of the element you want to find: ")
+
+# Manually making variables for each element.
+element_1 = {"atomic_number": 1, "name": "Hydrogen", "symbol": "H", "electrons": 1, "protons": 1, "neutrons": 0}
+element_2 = {"atomic_number": 2, "name": "Helium", "symbol": "He", "electrons": 2, "protons": 2, "neutrons": 2}
+element_3 = {"atomic_number": 3, "name": "Lithium", "symbol": "Li", "electrons": 3, "protons": 3, "neutrons": 4}
+element_4 = {"atomic_number": 4, "name": "Beryllium", "symbol": "Be", "electrons": 4, "protons": 4, "neutrons": 5}
+element_5 = {"atomic_number": 5, "name": "Boron", "symbol": "B", "electrons": 5, "protons": 5, "neutrons": 6}
+element_6 = {"atomic_number": 6, "name": "Carbon", "symbol": "C", "electrons": 6, "protons": 6, "neutrons": 6}
+element_7 = {"atomic_number": 7, "name": "Nitrogen", "symbol": "N", "electrons": 7, "protons": 7, "neutrons": 7}
+element_8 = {"atomic_number": 8, "name": "Oxygen", "symbol": "O", "electrons": 8, "protons": 8, "neutrons": 8}
+element_9 = {"atomic_number": 9, "name": "Fluorine", "symbol": "F", "electrons": 9, "protons": 9, "neutrons": 10}
+element_10 = {"atomic_number": 10, "name": "Neon", "symbol": "Ne", "electrons": 10, "protons": 10, "neutrons": 10}
+element_11 = {"atomic_number": 11, "name": "Sodium", "symbol": "Na", "electrons": 11, "protons": 11, "neutrons": 12}
+element_12 = {"atomic_number": 12, "name": "Magnesium", "symbol": "Mg", "electrons": 12, "protons": 12, "neutrons": 12}
+element_13 = {"atomic_number": 13, "name": "Aluminum", "symbol": "Al", "electrons": 13, "protons": 13, "neutrons": 14}
+element_14 = {"atomic_number": 14, "name": "Silicon", "symbol": "Si", "electrons": 14, "protons": 14, "neutrons": 14}
+element_15 = {"atomic_number": 15, "name": "Phosphorus", "symbol": "P", "electrons": 15, "protons": 15, "neutrons": 16}
+element_16 = {"atomic_number": 16, "name": "Sulfur", "symbol": "S", "electrons": 16, "protons": 16, "neutrons": 16}
+element_17 = {"atomic_number": 17, "name": "Chlorine", "symbol": "Cl", "electrons": 17, "protons": 17, "neutrons": 18}
+element_18 = {"atomic_number": 18, "name": "Argon", "symbol": "Ar", "electrons": 18, "protons": 18, "neutrons": 22}
+element_19 = {"atomic_number": 19, "name": "Potassium", "symbol": "K", "electrons": 19, "protons": 19, "neutrons": 20}
+element_20 = {"atomic_number": 20, "name": "Calcium", "symbol": "Ca", "electrons": 20, "protons": 20, "neutrons": 20}
+element_21 = {"atomic_number": 21, "name": "Scandium", "symbol": "Sc", "electrons": 21, "protons": 21, "neutrons": 24}
+element_22 = {"atomic_number": 22, "name": "Titanium", "symbol": "Ti", "electrons": 22, "protons": 22, "neutrons": 26}
+element_23 = {"atomic_number": 23, "name": "Vanadium", "symbol": "V", "electrons": 23, "protons": 23, "neutrons": 28}
+element_24 = {"atomic_number": 24, "name": "Chromium", "symbol": "Cr", "electrons": 24, "protons": 24, "neutrons": 28}
+element_25 = {"atomic_number": 25, "name": "Manganese", "symbol": "Mn", "electrons": 25, "protons": 25, "neutrons": 30}
+element_26 = {"atomic_number": 26, "name": "Iron", "symbol": "Fe", "electrons": 26, "protons": 26, "neutrons": 30}
+element_27 = {"atomic_number": 27, "name": "Cobalt", "symbol": "Co", "electrons": 27, "protons": 27, "neutrons": 32}
+element_28 = {"atomic_number": 28, "name": "Nickel", "symbol": "Ni", "electrons": 28, "protons": 28, "neutrons": 30}
+element_29 = {"atomic_number": 29, "name": "Copper", "symbol": "Cu", "electrons": 29, "protons": 29, "neutrons": 34}
+element_30 = {"atomic_number": 30, "name": "Zinc", "symbol": "Zn", "electrons": 30, "protons": 30, "neutrons": 35}
+element_31 = {"atomic_number": 31, "name": "Gallium", "symbol": "Ga", "electrons": 31, "protons": 31, "neutrons": 38}
+element_32 = {"atomic_number": 32, "name": "Germanium", "symbol": "Ge", "electrons": 32, "protons": 32, "neutrons": 40}
+element_33 = {"atomic_number": 33, "name": "Arsenic", "symbol": "As", "electrons": 33, "protons": 33, "neutrons": 42}
+element_34 = {"atomic_number": 34, "name": "Selenium", "symbol": "Se", "electrons": 34, "protons": 34, "neutrons": 44}
+element_35 = {"atomic_number": 35, "name": "Bromine", "symbol": "Br", "electrons": 35, "protons": 35, "neutrons": 44}
+element_36 = {"atomic_number": 36, "name": "Krypton", "symbol": "Kr", "electrons": 36, "protons": 36, "neutrons": 48}
+element_37 = {"atomic_number": 37, "name": "Rubidium", "symbol": "Rb", "electrons": 37, "protons": 37, "neutrons": 48}
+element_38 = {"atomic_number": 38, "name": "Strontium", "symbol": "Sr", "electrons": 38, "protons": 38, "neutrons": 50}
+element_39 = {"atomic_number": 39, "name": "Yttrium", "symbol": "Y", "electrons": 39, "protons": 39, "neutrons": 50}
+element_40 = {"atomic_number": 40, "name": "Zirconium", "symbol": "Zr", "electrons": 40, "protons": 40, "neutrons": 50}
+element_41 = {"atomic_number": 41, "name": "Niobium", "symbol": "Nb", "electrons": 41, "protons": 41, "neutrons": 52}
+element_42 = {"atomic_number": 42, "name": "Molybdenum", "symbol": "Mo", "electrons": 42, "protons": 42, "neutrons": 54}
+element_43 = {"atomic_number": 43, "name": "Technetium", "symbol": "Tc", "electrons": 43, "protons": 43, "neutrons": 55}
+element_44 = {"atomic_number": 44, "name": "Ruthenium", "symbol": "Ru", "electrons": 44, "protons": 44, "neutrons": 57}
+element_45 = {"atomic_number": 45, "name": "Rhodium", "symbol": "Rh", "electrons": 45, "protons": 45, "neutrons": 58}
+element_46 = {"atomic_number": 46, "name": "Palladium", "symbol": "Pd", "electrons": 46, "protons": 46, "neutrons": 60}
+element_47 = {"atomic_number": 47, "name": "Silver", "symbol": "Ag", "electrons": 47, "protons": 47, "neutrons": 60}
+element_48 = {"atomic_number": 48, "name": "Cadmium", "symbol": "Cd", "electrons": 48, "protons": 48, "neutrons": 64}
+element_49 = {"atomic_number": 49, "name": "Indium", "symbol": "In", "electrons": 49, "protons": 49, "neutrons": 66}
+element_50 = {"atomic_number": 50, "name": "Tin", "symbol": "Sn", "electrons": 50, "protons": 50, "neutrons": 69}
+element_51 = {"atomic_number": 51, "name": "Antimony", "symbol": "Sb", "electrons": 51, "protons": 51, "neutrons": 70}
+element_52 = {"atomic_number": 52, "name": "Tellurium", "symbol": "Te", "electrons": 52, "protons": 52, "neutrons": 76}
+element_53 = {"atomic_number": 53, "name": "Iodine", "symbol": "I", "electrons": 53, "protons": 53, "neutrons": 74}
+element_54 = {"atomic_number": 54, "name": "Xenon", "symbol": "Xe", "electrons": 54, "protons": 54, "neutrons": 77}
+element_55 = {"atomic_number": 55, "name": "Cesium", "symbol": "Cs", "electrons": 55, "protons": 55, "neutrons": 78}
+element_56 = {"atomic_number": 56, "name": "Barium", "symbol": "Ba", "electrons": 56, "protons": 56, "neutrons": 82}
+element_57 = {"atomic_number": 57, "name": "Lanthanum", "symbol": "La", "electrons": 57, "protons": 57, "neutrons": 82}
+element_58 = {"atomic_number": 58, "name": "Cerium", "symbol": "Ce", "electrons": 58, "protons": 58, "neutrons": 82}
+element_59 = {"atomic_number": 59, "name": "Praseodymium", "symbol": "Pr", "electrons": 59, "protons": 59, "neutrons": 82}
+element_60 = {"atomic_number": 60, "name": "Neodymium", "symbol": "Nd", "electrons": 60, "protons": 60, "neutrons": 84}
+element_61 = {"atomic_number": 61, "name": "Promethium", "symbol": "Pm", "electrons": 61, "protons": 61, "neutrons": 84}
+element_62 = {"atomic_number": 62, "name": "Samarium", "symbol": "Sm", "electrons": 62, "protons": 62, "neutrons": 88}
+element_63 = {"atomic_number": 63, "name": "Europium", "symbol": "Eu", "electrons": 63, "protons": 63, "neutrons": 88}
+element_64 = {"atomic_number": 64, "name": "Gadolinium", "symbol": "Gd", "electrons": 64, "protons": 64, "neutrons": 90}
+element_65 = {"atomic_number": 65, "name": "Terbium", "symbol": "Tb", "electrons": 65, "protons": 65, "neutrons": 94}
+element_66 = {"atomic_number": 66, "name": "Dysprosium", "symbol": "Dy", "electrons": 66, "protons": 66, "neutrons": 97}
+element_67 = {"atomic_number": 67, "name": "Holmium", "symbol": "Ho", "electrons": 67, "protons": 67, "neutrons": 98}
+element_68 = {"atomic_number": 68, "name": "Erbium", "symbol": "Er", "electrons": 68, "protons": 68, "neutrons": 99}
+element_69 = {"atomic_number": 69, "name": "Thulium", "symbol": "Tm", "electrons": 69, "protons": 69, "neutrons": 100}
+element_70 = {"atomic_number": 70, "name": "Ytterbium", "symbol": "Yb", "electrons": 70, "protons": 70, "neutrons": 103}
+element_71 = {"atomic_number": 71, "name": "Lutetium", "symbol": "Lu", "electrons": 71, "protons": 71, "neutrons": 104}
+element_72 = {"atomic_number": 72, "name": "Hafnium", "symbol": "Hf", "electrons": 72, "protons": 72, "neutrons": 106}
+element_73 = {"atomic_number": 73, "name": "Tantalum", "symbol": "Ta", "electrons": 73, "protons": 73, "neutrons": 108}
+element_74 = {"atomic_number": 74, "name": "Tungsten", "symbol": "W", "electrons": 74, "protons": 74, "neutrons": 110}
+element_75 = {"atomic_number": 75, "name": "Rhenium", "symbol": "Re", "electrons": 75, "protons": 75, "neutrons": 111}
+element_76 = {"atomic_number": 76, "name": "Osmium", "symbol": "Os", "electrons": 76, "protons": 76, "neutrons": 114}
+element_77 = {"atomic_number": 77, "name": "Iridium", "symbol": "Ir", "electrons": 77, "protons": 77, "neutrons": 115}
+element_78 = {"atomic_number": 78, "name": "Platinum", "symbol": "Pt", "electrons": 78, "protons": 78, "neutrons": 117}
+element_79 = {"atomic_number": 79, "name": "Gold", "symbol": "Au", "electrons": 79, "protons": 79, "neutrons": 118}
+element_80 = {"atomic_number": 80, "name": "Mercury", "symbol": "Hg", "electrons": 80, "protons": 80, "neutrons": 120}
+element_81 = {"atomic_number": 81, "name": "Thallium", "symbol": "Tl", "electrons": 81, "protons": 81, "neutrons": 123}
+element_82 = {"atomic_number": 82, "name": "Lead", "symbol": "Pb", "electrons": 82, "protons": 82, "neutrons": 125}
+element_83 = {"atomic_number": 83, "name": "Bismuth", "symbol": "Bi", "electrons": 83, "protons": 83, "neutrons": 126}
+element_84 = {"atomic_number": 84, "name": "Polonium", "symbol": "Po", "electrons": 84, "protons": 84, "neutrons": 125}
+element_85 = {"atomic_number": 85, "name": "Astatine", "symbol": "At", "electrons": 85, "protons": 85, "neutrons": 125}
+element_86 = {"atomic_number": 86, "name": "Radon", "symbol": "Rn", "electrons": 86, "protons": 86, "neutrons": 136}
+element_87 = {"atomic_number": 87, "name": "Francium", "symbol": "Fr", "electrons": 87, "protons": 87, "neutrons": 136}
+element_88 = {"atomic_number": 88, "name": "Radium", "symbol": "Ra", "electrons": 88, "protons": 88, "neutrons": 138}
+element_89 = {"atomic_number": 89, "name": "Actinium", "symbol": "Ac", "electrons": 89, "protons": 89, "neutrons": 138}
+element_90 = {"atomic_number": 90, "name": "Thorium", "symbol": "Th", "electrons": 90, "protons": 90, "neutrons": 142}
+element_91 = {"atomic_number": 91, "name": "Protactinium", "symbol": "Pa", "electrons": 91, "protons": 91, "neutrons": 140}
+element_92 = {"atomic_number": 92, "name": "Uranium", "symbol": "U", "electrons": 92, "protons": 92, "neutrons": 146}
+element_93 = {"atomic_number": 93, "name": "Neptunium", "symbol": "Np", "electrons": 93, "protons": 93, "neutrons": 144}
+element_94 = {"atomic_number": 94, "name": "Plutonium", "symbol": "Pu", "electrons": 94, "protons": 94, "neutrons": 150}
+element_95 = {"atomic_number": 95, "name": "Americium", "symbol": "Am", "electrons": 95, "protons": 95, "neutrons": 148}
+element_96 = {"atomic_number": 96, "name": "Curium", "symbol": "Cm", "electrons": 96, "protons": 96, "neutrons": 151}
+element_97 = {"atomic_number": 97, "name": "Berkelium", "symbol": "Bk", "electrons": 97, "protons": 97, "neutrons": 150}
+element_98 = {"atomic_number": 98, "name": "Californium", "symbol": "Cf", "electrons": 98, "protons": 98, "neutrons": 153}
+element_99 = {"atomic_number": 99, "name": "Einsteinium", "symbol": "Es", "electrons": 99, "protons": 99, "neutrons": 153}
+element_100 = {"atomic_number": 100, "name": "Fermium", "symbol": "Fm", "electrons": 100, "protons": 100, "neutrons": 157}
+element_101 = {"atomic_number": 101, "name": "Mendelevium", "symbol": "Md", "electrons": 101, "protons": 101, "neutrons": 157}
+element_102 = {"atomic_number": 102, "name": "Nobelium", "symbol": "No", "electrons": 102, "protons": 102, "neutrons": 157}
+element_103 = {"atomic_number": 103, "name": "Lawrencium", "symbol": "Lr", "electrons": 103, "protons": 103, "neutrons": 159}
+element_104 = {"atomic_number": 104, "name": "Rutherfordium", "symbol": "Rf", "electrons": 104, "protons": 104, "neutrons": 161}
+element_105 = {"atomic_number": 105, "name": "Dubnium", "symbol": "Db", "electrons": 105, "protons": 105, "neutrons": 163}
+element_106 = {"atomic_number": 106, "name": "Seaborgium", "symbol": "Sg", "electrons": 106, "protons": 106, "neutrons": 163}
+element_107 = {"atomic_number": 107, "name": "Bohrium", "symbol": "Bh", "electrons": 107, "protons": 107, "neutrons": 163}
+element_108 = {"atomic_number": 108, "name": "Hassium", "symbol": "Hs", "electrons": 108, "protons": 108, "neutrons": 165}
+element_109 = {"atomic_number": 109, "name": "Meitnerium", "symbol": "Mt", "electrons": 109, "protons": 109, "neutrons": 165}
+element_110 = {"atomic_number": 110, "name": "Darmstadtium", "symbol": "Ds", "electrons": 110, "protons": 110, "neutrons": 171}
+element_111 = {"atomic_number": 111, "name": "Roentgenium", "symbol": "Rg", "electrons": 111, "protons": 111, "neutrons": 171}
+element_112 = {"atomic_number": 112, "name": "Copernicium", "symbol": "Cn", "electrons": 112, "protons": 112, "neutrons": 173}
+element_113 = {"atomic_number": 113, "name": "Nihonium", "symbol": "Nh", "electrons": 113, "protons": 113, "neutrons": 173}
+element_114 = {"atomic_number": 114, "name": "Flerovium", "symbol": "Fl", "electrons": 114, "protons": 114, "neutrons": 175}
+element_115 = {"atomic_number": 115, "name": "Moscovium", "symbol": "Mc", "electrons": 115, "protons": 115, "neutrons": 173}
+element_116 = {"atomic_number": 116, "name": "Livermorium", "symbol": "Lv", "electrons": 116, "protons": 116, "neutrons": 177}
+element_117 = {"atomic_number": 117, "name": "Tennessine", "symbol": "Ts", "electrons": 117, "protons": 117, "neutrons": 177}
+element_118 = {"atomic_number": 118, "name": "Oganesson", "symbol": "Og", "electrons": 118, "protons": 118, "neutrons": 176}
+
+
+# Create a list of all elements for easy searching
+all_elements = [
+    element_1, element_2, element_3, element_4, element_5, element_6, element_7, element_8, element_9, element_10,
+    element_11, element_12, element_13, element_14, element_15, element_16, element_17, element_18, element_19, element_20,
+    element_21, element_22, element_23, element_24, element_25, element_26, element_27, element_28, element_29, element_30,
+    element_31, element_32, element_33, element_34, element_35, element_36, element_37, element_38, element_39, element_40,
+    element_41, element_42, element_43, element_44, element_45, element_46, element_47, element_48, element_49, element_50,
+    element_51, element_52, element_53, element_54, element_55, element_56, element_57, element_58, element_59, element_60,
+    element_61, element_62, element_63, element_64, element_65, element_66, element_67, element_68, element_69, element_70,
+    element_71, element_72, element_73, element_74, element_75, element_76, element_77, element_78, element_79, element_80,
+    element_81, element_82, element_83, element_84, element_85, element_86, element_87, element_88, element_89, element_90,
+    element_91, element_92, element_93, element_94, element_95, element_96, element_97, element_98, element_99, element_100,
+    element_101, element_102, element_103, element_104, element_105, element_106, element_107, element_108, element_109, element_110,
+    element_111, element_112, element_113, element_114, element_115, element_116, element_117, element_118
+]
+
+def ask_for_charge():
+    while True:
+        charge_input = input("If the element is an ion, enter its charge (e.g. +1, -2). Enter 0 for neutral: ").strip()
+        if charge_input == "":
+            print("Please enter a charge (0 for neutral).")
+            continue
+        try:
+            charge = int(charge_input)
+            return charge
+        except ValueError:
+            try:
+                if charge_input.startswith("+"):
+                    charge = int(charge_input[1:])
+                    return charge
+                elif charge_input.startswith("-"):
+                    charge = -int(charge_input[1:])
+                    return charge
+            except Exception:
+                pass
+            print("Invalid charge format. Examples: +1, -2, 0")
+
+# Search for the element
+found_element = None
+
+# Try to match by atomic number
+try:
+    atomic_num = int(elementInput)
+    for element in all_elements:
+        if element["atomic_number"] == atomic_num:
+            found_element = element
+            break
+except ValueError:
+    # If not a number, search by name or symbol
+    search_input = elementInput.lower()
+    for element in all_elements:
+        if element["name"].lower() == search_input or element["symbol"].lower() == search_input:
+            found_element = element
+            break
+
+# Display the results
+if found_element:
+    charge = ask_for_charge()
+    adjusted_electrons = found_element["protons"] - charge
+    if adjusted_electrons < 0:
+        adjusted_electrons = 0
+    charge_str = f"+{charge}" if charge > 0 else str(charge)
+    print("\n" + "="*50)
+    print("ELEMENT INFORMATION")
+    print("="*50)
+    print(f"Atomic Number: {found_element['atomic_number']}")
+    print(f"Name: {found_element['name']}")
+    print(f"Symbol: {found_element['symbol']}")
+    print(f"Charge: {charge_str}")
+    print(f"Electrons (neutral): {found_element['electrons']}")
+    print(f"Electrons (ionic): {adjusted_electrons}")
+    print(f"Protons: {found_element['protons']}")
+    print(f"Neutrons: {found_element['neutrons']}")
+    print("="*50 + "\n")
+else:
+    print("\nElement not found. Please check your input and try again.\n")
+
+print("Type in another element to search for, or type 'exit' to quit the program.")
+while True:
+    elementInput = input("Enter element name, symbol, or atomic number: ")
+    if elementInput.lower() == 'exit':
+        # Quiz optional input for user.
+        print("Thank you for using ChemHelper! Would you like to get a quick quiz on the periodic table? (yes/no)")
+        quiz_input = input().strip().lower()
+        if quiz_input == 'yes':
+            print("Okay! Good Luck!")
+            print("Type 'exit' at any time to quit the quiz.")
+            while True:
+                quiz_element = random.choice(all_elements)
+                quiz_question = f"What is the atomic number of {quiz_element['name']} ({quiz_element['symbol']})?"
+                answer = input(quiz_question + " ")
+                if answer.lower() == 'exit':
+                    print("Thanks for playing! Goodbye!")
+                    sys.exit()
+                try:
+                    if int(answer) == quiz_element['atomic_number']:
+                        print("Correct!")
+                    else:
+                        print(f"Wrong! The correct answer is {quiz_element['atomic_number']}.")
+                except ValueError:
+                    print("Please enter a valid number or 'exit' to quit.")
+        else:
+            print("No problem! Thanks for using ChemHelper! Goodbye!")
+        break
+
+    found_element = None
+
+    # Try to match by atomic number
+    try:
+        atomic_num = int(elementInput)
+        for element in all_elements:
+            if element["atomic_number"] == atomic_num:
+                found_element = element
+                break
+    except ValueError:
+        # If not a number, search by name or symbol
+        search_input = elementInput.lower()
+        for element in all_elements:
+            if element["name"].lower() == search_input or element["symbol"].lower() == search_input:
+                found_element = element
+                break
+
+    # Display the results
+    if found_element:
+        charge = ask_for_charge()
+        adjusted_electrons = found_element["protons"] - charge
+        if adjusted_electrons < 0:
+            adjusted_electrons = 0
+        charge_str = f"+{charge}" if charge > 0 else str(charge)
+        print("\n" + "="*50)
+        print("ELEMENT INFORMATION")
+        print("="*50)
+        print(f"Atomic Number: {found_element['atomic_number']}")
+        print(f"Name: {found_element['name']}")
+        print(f"Symbol: {found_element['symbol']}")
+        print(f"Charge: {charge_str}")
+        print(f"Electrons (neutral): {found_element['electrons']}")
+        print(f"Electrons (ionic): {adjusted_electrons}")
+        print(f"Protons: {found_element['protons']}")
+        print(f"Neutrons: {found_element['neutrons']}")
+        print("="*50 + "\n")
+    else:
+        print("\nElement not found. Please check your input and try again.\n")
